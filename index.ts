@@ -85,15 +85,19 @@ let skill:(string|number|boolean)[] = ["JS","CSS","TS",10,20,30];
 // Functions in Typescript ===========================================;
 
 
-function getName(userDetailss:Details){
-     return userDetailss.name
-}
+// function getName(userDetailss:Details){
+//      return userDetailss.name
+// }
 
- console.log(getName(userDetailss));
+//  console.log(getName(userDetailss));
   
+ type GetFirstName ={
+    name : string;
+    age:number
+ }
 
-function getFirstName(userDetailss:Details):string{
-  return userDetailss.name;
+function getFirstName(userDetailss:Details):GetFirstName{
+  return {name:userDetailss.name , age:userDetailss.age};
 }
  let newValue = getFirstName(userDetailss);
 
@@ -101,11 +105,155 @@ function getFirstName(userDetailss:Details):string{
  
 
 
- 
+//  Named Type ================================================;
+
+
+type statusType = "pending" | "completed" | "failed";
+type ToggleSwitch = "on" | "off";
+
+let currentStatus:statusType = "pending";
+let toggleSwitch : ToggleSwitch = "off";
+
+toggleSwitch = "off";
+
+
+// Function Overloading ===============================================;
+
+
+// function add (num1:number | string, num2:number | string) :number|string {
+
+//     if(typeof num1 === "string" || typeof num2 === "string"){
+//         return num1 +""+ num2;
+//     }
+//     return num1 = num2;
+
+// }
+
+// add (2,3);
+// add("2","3");
+
+
+
+// function Overloading
+
+function add(num1:number , num2 : number):number;
+function add(num1:string , num2 : string):string;
+function add(num1:any,num2:any):any{
+    return num1 + num2;
+}
+
+add (2,3);
+add("2","3");
 
 
 
 
 
 
+// Generics============================================================================;
 
+function getAge<T>(age:T):T{
+    return age;
+}
+
+getAge<string>("20");
+getAge<number>(20);
+
+//interface -------------------------------
+//  interface userDetails {
+//     name : string;
+//     age :number
+// }
+
+// interface adminDetails extends userDetail{
+//     role:string
+// }
+// -----------------------------------------
+
+
+
+//  type --
+type userDetail = {
+    name : string;
+    age :number
+}
+
+type adminDetail = userDetail &{
+    // age : number;
+    // name : string;
+    role : number;
+}
+
+const usersDetails :userDetail ={
+    name: 'abijith',
+    age:20
+}
+
+const adminsDetails : adminDetail={
+    age:20,
+    name:'admin',
+    role:20
+}
+
+
+function getDetails<T>(Details:T):T{
+    return Details;
+}
+
+const useValue = getDetails<userDetail>(usersDetails);
+const adminValue = getDetails<adminDetail>(adminsDetails);
+
+useValue.name;
+adminValue.name;
+
+
+
+
+
+// Enums / as const================================================================================;
+
+
+// enum statusT {
+//     PENDING='pending',
+//     COMPLETED='completed',
+//     FAILED='failed'
+//   }
+
+ enum statusT {
+    PENDING=1,
+    COMPLETED,
+    FAILED
+  }
+
+  function getstatus(orderID, status:statusT){
+    console.log(orderID,"==",status);
+    
+  }
+getstatus('123456',statusT.COMPLETED);
+
+
+
+// as const ==================================================;
+
+
+let userNamee = 'abijith' as const; /** Type casting */
+userNamee = "abijith";
+
+
+
+// keyof and typeof =============================================;
+
+
+
+
+const statusTypes={
+    PENDING : "pending",
+    COMPLETED : "completed",
+    FAILED : "failed"
+}
+
+function getsstatus(orderID:string,status:keyof typeof statusTypes){
+    console.log(orderID,"==",statusTypes[status]);
+}
+
+getsstatus('12345',"COMPLETED");  
