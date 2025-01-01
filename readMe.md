@@ -20,7 +20,7 @@
 
 [x]  keyof / typeof
 
-[]  Utility Type
+[x]  Utility Type
 
 []  any/unknown/never/void
 

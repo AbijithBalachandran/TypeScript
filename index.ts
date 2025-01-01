@@ -244,16 +244,107 @@ userNamee = "abijith";
 // keyof and typeof =============================================;
 
 
-
-
 const statusTypes={
     PENDING : "pending",
     COMPLETED : "completed",
     FAILED : "failed"
-}
+}as const;
 
 function getsstatus(orderID:string,status:keyof typeof statusTypes){
     console.log(orderID,"==",statusTypes[status]);
 }
 
 getsstatus('12345',"COMPLETED");  
+
+
+// Utility Types ===================================================;
+
+
+
+// type person={
+//     readonly name :string;
+//      age: number;
+// }
+
+
+type person={
+     name :string;
+     age: number;
+     salary :number;
+}
+
+
+// const personDetails:Readonly <person> ={
+//     name : "Abijith",
+//     age:23
+// }
+
+
+
+// const personDetails:Partial <person> ={
+//     name : "Abijith",
+//     age:23
+// }
+
+
+
+// const personDetails:Required <person> ={
+//     name : "Abijith",
+//     age:23
+// }
+
+
+
+// const persons:Pick<person,"name"|"age"> ={
+//     name:"abijith",
+//      age :20
+// }
+
+
+
+const persons:Omit<person,"salary"> ={
+    name:"abijith",
+     age :20,
+
+}
+
+
+
+
+// type statusTypes = "pending" | "completed" | "failed";
+// const Status:Exclude<statusTypes,"pending">=""
+
+
+
+// type Food ={
+//     KFC : string;
+//     PIZZA : string;
+//     CHICKEN : string;
+
+// }
+
+
+type Food = Record <string,any>;
+
+// type Food={
+//     [index:string]:any 
+// }
+
+const food:Food={
+    PIZZA:'sdas',
+    CHICKEN :{
+        tt:'thanthuri'
+    }
+}
+
+
+    
+
+
+
+// any /unknown /never / void/ null ================================================;
+
+
+
+
+
