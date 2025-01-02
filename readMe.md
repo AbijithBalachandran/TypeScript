@@ -22,6 +22,6 @@
 
 [x]  Utility Type
 
-[]  any/unknown/never/void
+[x]  any/unknown/never/void
 
 

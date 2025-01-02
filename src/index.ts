@@ -225,7 +225,7 @@ adminValue.name;
     FAILED
   }
 
-  function getstatus(orderID, status:statusT){
+  function getstatus(orderID: string, status:statusT){
     console.log(orderID,"==",status);
     
   }
@@ -346,5 +346,57 @@ const food:Food={
 
 
 
+let userNames : unknown = "abijith"; // data being fetched from API;
+
+const newName =  userNames as string
+
+
+
+// never / void ;;;;
+
+
+function throwError(message:string):never{
+    throw new Error(message);
+}
+
+//never nothing to return - it used for when the error throwing and use as a infinit loop
+
+function logMessage(message:string):void{
+    console.log(message);
+}
+
+// void also is same it used to indicate that a function does not return a value. Commonly used for functions that perform actions like logging, triggering other functions, or performing side effects.
+
+
+type Customer ={
+    name :string;
+    getCustomerName:(message:string)=> void;
+}
+
+
+const currentObj : Customer={
+    name:"abijith",
+    getCustomerName(message){
+        // return "hello";
+        console.log(message);
+        
+    }
+}
+
+currentObj.getCustomerName('hello');
+
+
+
+let customName : string | null = null;
+
+function getName (){
+    if (userName) {
+        return "sndn"
+
+    }else if(customName === null){
+          return "shdkd"
+    }
+
+}
 
 
