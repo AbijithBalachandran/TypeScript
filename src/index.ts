@@ -20,6 +20,16 @@ let userObject : {name:string;age:number} = {name:'abijith',age:25};
 
 //  Interface ----------------------------------------
 
+// interface IntrefaceName{
+//     propertyName:typeof;
+//     methodName(param:type):ReturnType;
+// }
+
+
+
+
+
+
 
 let userDetails:{name:string ; age:number ; salary:number} ={
     name:'abijith',
@@ -27,13 +37,98 @@ let userDetails:{name:string ; age:number ; salary:number} ={
     salary:300000
 };
 
+// 1.Basic Object Type 
 
-// interface Details{
-//     name : string;
-//     age : number;
-//     salary:number;
-//     getName:()=>void;
-// }
+interface Detailsss{
+    name : string;
+    age : number;
+    salary:number;
+    getName:()=>void;
+}
+
+let userDetailssss:Detailsss ={
+    name:'abijith',
+    age : 25,
+    salary:300000,
+    getName(){
+        console.log(this.name);
+        
+    }
+};
+
+// 2.Optional Properties
+
+interface Product{
+    name :string;
+    price:number;
+    description?:string; //optional property 
+}
+
+const product : Product ={
+    name : "Laptop",
+    price:1500,
+};
+
+// 3.Readonly Properties
+
+interface Car {
+    readonly make : string;
+    model : string;
+}
+
+const car : Car ={
+    make:"Toyota",
+    model:"Camry",
+}
+// car.make = "honda" ===  Error: cannot assign to 'make' because it is a read only property.
+
+
+// 4.Function Type interface
+
+interface Add{
+    (a:number,b:number):number;
+}
+
+const adding:Add =(x,y)=>x+y;
+console.log("interface function type  "+add(5,10));
+
+
+// 5.Extending Interfaces
+
+interface Person {
+    name : string;
+    age : number;
+}
+
+interface Employee extends Person {
+    emplyeeId :number;
+    department:string;
+}
+
+const emplyee :Employee={
+    name:"Abijith",
+    age:25,
+    emplyeeId:101,
+    department:"IT",
+};
+
+
+// 6.Index Signatures 
+
+interface Dictionary {
+    [key :string]:string;
+}
+
+const translation :Dictionary ={
+    hello :"hola",
+    world :"Mundo",
+};
+
+
+
+
+
+// Type ===================================================================;
 
 
 type Detail = {
@@ -52,6 +147,9 @@ let userDetail:Detail ={
         
     }
 };
+
+
+
 
 
 
