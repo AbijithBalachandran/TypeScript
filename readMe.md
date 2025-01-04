@@ -125,18 +125,334 @@ interfaces improve code consistency , readability and mainatinability, especiall
                             direction = "up" -> valid
                             direction = "diagonal" -> error 
 
+               11.any Type : Represent any type of value. Use sparingly as it disables type checking.
                             
+                            let data:any = "hello";
+                            data = 42  // valid but risky
+
+               12.unknown Type : safer alternative to any . Requires type checking before usage.
+
+                              let input : unknown = "hello";
+                              if(typeof input === "string"){
+                                console.log(input.toUpperCase());
+                              }
+               
+               13.void Type :-Used for function that do not return a value.
+
+                               function logMassage(massage:string):void{
+                                console.log(message);
+                               }              
+
+               14.never Type : Represent a value that never occurs (eg.function that throws an error or runs indefinitely).
+
+                                 fucntion throwError(message:string):never{
+                                  throw new Error(message);
+                                 }   
+
+               15.Enums : Enums define a set of named constants : 
+
+                         enum Direction {
+                          up,
+                          down ,
+                          left , 
+                          right,
+                         }      
+
+                         let move : Direction = Direction.up;
+
+
+           Benefits  of using Type in TypeScript
+           =======================================
+           # Type safety : Catches errors during development.
+           # Readability : Enhances code clarity and intent.
+           # Maintainability : Simplifies working in large , complex Projects.
+           # Intelligent Tooling : Enables Better auto-completion , refactoring , and debugging                    
       
 
-[x] Union(?)/Optional(|);
+[x] Union(|)/Optional(?);
+          
+          Union(|)
+          ========
+         Union is used to specify that a variable or parameter can hold one of multiple types .It allows combining multiple types into a single type.
+
+         type combinedType = Type1 | Type2 | ..................
+
+         let id: string | number;
+            id = 123;        // Valid
+            id = "ABC123";   // Valid
+            id = true;       // Error: Type 'boolean' is not assignable to type 'string | number'.
+
+           
+           Optional(?)
+           ===========
+         The ? modifier is used to make a property or parameter Optional, meaning it may or may not be persent.
+         Optional properties default to undefined when not provided.
+
+          propertyName ? : Type;
+
+          interface User {
+            name : String;
+            age? : number; //optional property 
+          }
+
+          let user1 : User = { name : "abijith"};
+          let user2 : User = { name : "john" , age :24};
+
+
+                           interface User {
+                                 id: string | number;  // Can be either a string or a number
+                                 age?: number | string; // Optional and can be a number or a string
+                            }  
+
+
 
 [X] Functions
 
+     A function in TypeScript is a block of reusable code designed to perform a specific task .
+     functions are foundational to any programming language , and TypeScript enhances them with static
+     typing and type safety for parameters, return values and more.
+
+
+                function greet ():void { // == put return type as void ==
+                       console.log("hello world");
+                }
+ 
+               function greetUser(name: string): void {
+                       console.log(`Hello, ${name}!`);
+               }
+                 greetUser("Abijith"); // Output: Hello, Abijith!
+
+
+                 function add(a: number, b: number): number { ==return type is number==
+                                return a + b;
+                      }
+                           console.log(add(5, 10)); // Output: 15
+
+                    arrow function 
+                    ===============
+                    const greet = (name: string): string => `Hello, ${name}!`;
+                      console.log(greet("Abijith")); // Output: Hello, Abijith!
+
+
+                      Function Type
+                      ==============
+                      type MathOperation = (a: number, b: number) => number;
+
+                        const add: MathOperation = (x, y) => x + y;
+                        const subtract: MathOperation = (x, y) => x - y;
+
+                        console.log(add(10, 5)); // Output: 15
+                        console.log(subtract(10, 5)); // Output: 5
+
+                        Never type
+                        ==========
+
+                        function throwError(message: string): never {
+                                throw new Error(message);
+                          }
+
+
+                        Function with interface
+                        ==========================
+
+                       interface User {
+                          name: string;
+                           age: number;
+                        }
+
+                           function displayUser({ name, age }: User): string {
+                                       return `User: ${name}, Age: ${age}`;
+                               }
+
+                            console.log(displayUser({ name: "Abijith", age: 25 })); // Output: User: Abijith, Age: 25
+
+
+
+
+
 [X]  Named Type
 
+    A Named Type in TypeScript refers to types that are explicitly declared with a name using either :
+          # Type Aliases(type)
+          # Interfaces (interface)
+
+    Type Aliases = type TypeName = <type>;
+    ====================================== 
+           1. Primitive Type Alias:  type ID = string | number;
+           2. Object Type Alias : type User = { 
+                                      name : string;
+                                      age : number;
+                                     }   
+
+           3. Function Type Alias : type MathOperation = (a:number, b:number)=> number;
+           4. Array Type Alias : type StringArray = string[];
+
+
+    Interfaces = interface InterfaceName { 
+                    property : type;
+                    method () :returnType;
+                         }
+    ========================================                     
+      
+             extending interfaces  
+                  
+                  interface person {
+                    name : string;
+                  }
+
+                  interface Employee extend person{
+                    employeeId:number;
+                  }
+                   
+                   let worker: Employee = { name: "John", employeeId: 101 };
+
+
 [x]  Functions overloading
+         
+         Function overloading allows a function to have multiple definitions with different parameter types
+         and /or counts. TypeScript enables function overloading by defining multiple function signatures , 
+         which are mapped to a single implementation.
+
+         Key Points;
+         ===========
+         1, Overload signatures
+         -----------------------
+             * These define the allowed ways to call the function.
+             * They are not the actual implementation, so they cannot contain logic.
+         2, Implementation :
+         --------------------
+             * The single implementation must handle all overload
+             * The implementation must accomodate all types and counts of parameters.
+         3, TypeScript Rules :
+         ---------------------
+             * TypeScript enforces that the implementation matches the overload signatures.
+             * If you call the function in a way that does not match an overload signature, TypeScript will
+               raise an error      
 
 [x]  Generics
+
+       Generics in TypeScript allow you to create reusable , type-safe components that work with multiple 
+       data types. Instead of specifying a specific type , generics provide a way to write a component or
+       function that can accept differnet types while maintaining type safety.
+      
+
+      syntax : - A generic type is declared using angle bracket (<>) with a placeholder (commonly T,U,K,V);
+               function identity <T>(value : T):T{
+                 return value;
+               }
+          
+
+          Examples of Generics :-
+
+           1. generic Functions :-
+           -------------------------
+                          function identity <T>(value:T):T{
+                            return value;
+                          }
+
+                          console.log(identity<string>("hello"));
+                          console.log(identity<number>(42));
+                          console.log(identity<boolean>(true));
+
+           2.Generics Interfaces :-
+           -------------------------
+                     interface Box<T>{
+                      value:T;
+                     }              
+             
+             const stringBox : Box<string> = {value:"hello};
+             const numberBox : box<number> = {value :123};
+
+             console.log(stringBox.value);
+             console.log(numberBox.value);
+
+           3.Generic Classes;-
+           -------------------
+                          class DataStore<T>{
+                            private data: T[]=[];
+
+                            addItem(item:T):void{
+                              this.data.push(item);
+                            }
+                            getItems():T[]{
+                              return this.data;
+                            }
+                          }
+
+                          const stringStore = new DataStore<string>();
+
+                          stringStore.addItem("Hello");
+                          stringStore.addItem("World");
+
+                          console.log(stringStore.getItems());
+
+                          const numberStore = new DataStore<number>();
+
+                              numberStore.addItem(1);
+                              numberStore.addItem(2);
+                          console.log(numberStore.getItems()); // Output: [1, 2]
+          
+           4.Generic Constraints:-
+           -----------------------
+
+                      function logLength<T extends {length:number}>(item:T):void{
+                              console.log(item.length);
+                         } 
+
+                          logLength('Hello'); //output=5
+
+                          logLength([1,2,3]); //utput =3
+
+                    "// Invalid: number does not have a length property
+                    // logLength(42); // Error: Argument of type 'number' is not assignable "
+
+
+           5.Generic Functions With Multiple Parameters;-
+           ----------------------------------------------
+            
+                       function merge<T,U>(obj1:T , obj2: U)T & U {
+                           return {...obj1 , ...obj2};
+                        }
+
+                        const person = merge({name:"abijith"},{age:25});
+                        console.log(person);
+
+           6.Default Generic Types:-
+           --------------------------
+
+                         interface Response<T = string> {
+                            data:T;
+                         }         
+
+                         const stringResponse : Response = {data:"Success"};
+                         const numberResponse : Response<number> = {data:200};
+
+           7.Generic Utility Types:-
+           --------------------------
+
+                           *Partial<T> : Makes all Properties optional.
+                           *Readonly<T> : Makes all properties read-only.
+                           *Recoed<k , T> : Constructs an object type with keys of type k and values of type T                
+
+                         
+                      type User ={
+                         id : number;
+                         name : string;
+                      }
+
+                      const user : Partial<User>={};
+                      const readonlyUser:Readonly <User> = {id:1,name:"Abijith"};
+
+                        "// readonlyUser.id = 2; // Error: Cannot assign to 'id' because it is a read-only property."
+
+                        
+
+
+
+                
+                      
+
+
 
 [x]  Enums / as const
 
