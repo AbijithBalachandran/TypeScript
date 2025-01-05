@@ -445,18 +445,99 @@ interfaces improve code consistency , readability and mainatinability, especiall
 
                         "// readonlyUser.id = 2; // Error: Cannot assign to 'id' because it is a read-only property."
 
+
+                 key advantages of generics
+                 ---------------------------
+                 # code resuability :- write a function or class once and use it for different type
+                 # Type safety :- prevent runtime type errors by enforcing type relationships.
+                 # Improved Readability :- Use descriptive type placeholders(eg:T,U) for clarity.       
+
+
+[x]  Enums / as const 
+
+ An Enum (short for "Enumeration") is a feature in TypeScript taht allows you to define a set of named constants.
+ Enums make it easier to work with sets of ralated  values , improving readability 
+ and reducing errors caused by hard-coded strings or numbers 
+                 
+                1. Numeric Enums:The default type for enums.\
+                2, String Enums : Using string values instead of numbers.
+                3, Heterogeneous Enums:A mix of string and numeric values.
+
+
+                numberic enums:
                         
+                        enum Direction {
+                            Up,    // 0
+                            Down,  // 1
+                            Left,  // 2
+                            Right  // 3
+                          }
+
+                      console.log(Direction.Up);    // Output: 0
+                      console.log(Direction[0]);    // Output: "Up"
+
+                       // Custom values
+                             enum Status {
+                                Success = 1,
+                                Failure = -1,
+                                Pending = 0,
+                            }
+
+                       console.log(Status.Failure);  // Output: -1
+
+                string enums:   
+
+                       enum Direction {
+                          Up = "UP",
+                          Down = "DOWN",
+                          Left = "LEFT",
+                          Right = "RIGHT",
+                        }
+
+                       console.log(Direction.Up); // Output: "UP"
 
 
 
-                
-                      
+                Heterogeneous Enums:
+                        enum Mixed {
+                          No = 0,
+                          Yes = "YES" 
+                        }
+
+                   console.log(Mixed.No);  // Output: 0
+                    console.log(Mixed.Yes); // Output: "YES"
 
 
+          AS CONST 
+          ========
 
-[x]  Enums / as const
+          The 'as const' keyword in TypeScript creates a readonly literal type. It prevents changes to the
+          value and infers their types as their literal values , not the genaral types like string or number.
+
+           why use 'as const'
+           -----------------
+           * To create immutable, strongly-typed constants.
+           * To prevent accidental changes to an object or array.
+                  
 
 [x]  keyof / typeof
+
+  Key of operator
+  ---------------
+   The keyof operator generates a union of all keys of a given type. It's often used to define types
+   that depend on the keys of an object.
+
+     type ObjectKeys = keyof SomeObjectType;
+      
+              type Person = {
+                name:string;
+                age: number;
+                isStudent:boolean;
+              };
+
+              type PersonKeys = keyof Person;
+
+              let key : PersonKeys = "name"
 
 [x]  Utility Type
 
