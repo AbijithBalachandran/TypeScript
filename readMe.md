@@ -28,13 +28,13 @@ features
 
 
 [x] Inter Types (Implicit Types) type inference;
-
+================================================
 Implicity types occur when the type of a variable is automatically determined by the programined by the programming language based on the assigned value, without explicitly specifying the type. 
 
 
 
 [x] Defining Types (explicit Types);
-
+=======================================
 Explicit Types are types that are manually specified by the programmer when declaring variables , function parameters , or return types . This is commonly used in statically typed languages like TypeScript , C++, or java. 
 
 Using explicity types ensures types safety and clarity , making the code easier to understand and maintain.
@@ -42,7 +42,7 @@ Using explicity types ensures types safety and clarity , making the code easier 
 
 
 [x] Interface
-
+==============
 
 An Inference in TypeScript is a way to define the Shape of an object including its properties , methods and their types . It is a blueprint that enforces a structure or contract on data ensuring that objects conform to specific requirements.
 interfaces improve code consistency , readability and mainatinability, especially in large projects.
@@ -57,7 +57,7 @@ interfaces improve code consistency , readability and mainatinability, especiall
   
 
 [x] Types
-
+=========
  In TypeScript , types are used to define the shape and structure of data. They hellp ensure type safety by enabling developers to specify the type of variables,function parameters , return values and more. TypeScript provides various ways to define types, including built-in primitive types , complex types and user-defined types.
 
                Categories of Types
@@ -170,7 +170,7 @@ interfaces improve code consistency , readability and mainatinability, especiall
       
 
 [x] Union(|)/Optional(?);
-          
+=========================          
           Union(|)
           ========
          Union is used to specify that a variable or parameter can hold one of multiple types .It allows combining multiple types into a single type.
@@ -207,7 +207,7 @@ interfaces improve code consistency , readability and mainatinability, especiall
 
 
 [X] Functions
-
+==============
      A function in TypeScript is a block of reusable code designed to perform a specific task .
      functions are foundational to any programming language , and TypeScript enhances them with static
      typing and type safety for parameters, return values and more.
@@ -271,7 +271,7 @@ interfaces improve code consistency , readability and mainatinability, especiall
 
 
 [X]  Named Type
-
+================
     A Named Type in TypeScript refers to types that are explicitly declared with a name using either :
           # Type Aliases(type)
           # Interfaces (interface)
@@ -308,7 +308,7 @@ interfaces improve code consistency , readability and mainatinability, especiall
 
 
 [x]  Functions overloading
-         
+===========================         
          Function overloading allows a function to have multiple definitions with different parameter types
          and /or counts. TypeScript enables function overloading by defining multiple function signatures , 
          which are mapped to a single implementation.
@@ -330,7 +330,7 @@ interfaces improve code consistency , readability and mainatinability, especiall
                raise an error      
 
 [x]  Generics
-
+==============
        Generics in TypeScript allow you to create reusable , type-safe components that work with multiple 
        data types. Instead of specifying a specific type , generics provide a way to write a component or
        function that can accept differnet types while maintaining type safety.
@@ -454,7 +454,7 @@ interfaces improve code consistency , readability and mainatinability, especiall
 
 
 [x]  Enums / as const 
-
+======================
  An Enum (short for "Enumeration") is a feature in TypeScript taht allows you to define a set of named constants.
  Enums make it easier to work with sets of ralated  values , improving readability 
  and reducing errors caused by hard-coded strings or numbers 
@@ -521,7 +521,7 @@ interfaces improve code consistency , readability and mainatinability, especiall
                   
 
 [x]  keyof / typeof
-
+====================
   Key of operator
   ---------------
    The keyof operator generates a union of all keys of a given type. It's often used to define types
@@ -536,10 +536,196 @@ interfaces improve code consistency , readability and mainatinability, especiall
               };
 
               type PersonKeys = keyof Person;
+                                         // Equivalent to: type AgeType = number;
+              let key : PersonKeys = "name";
 
-              let key : PersonKeys = "name"
+   typeof operator
+   ----------------
+   The typeof operator in TypeScript retrieves the type of a value or variable . it's commonly used for
+   type inference and to create type based on existing values.
+
+    const variable = someValue;
+    type variableType = typeof variable;  
+
+               Examples  
+               =========
+
+               const name = "Abijith";
+               type NameType = typeof name;
+                                       // Equivalent to: type NameType = string;
+               const age = 25;
+               type ageType = typeof age;   
+                                      // Equivalent to: type AgeType = number;    
+
+
 
 [x]  Utility Type
+===================
+                 
+      Utility type are built-in features in TypeScript that help transform or manipulate types. They are
+      useful for creating new types based on existing ones , enabling cleaner , more concise code.           
+      
+
+         common Utility types;
+         ======================
+             
+             1.Partial<T>  :- Make all properties of type optional.
+             --------------   useful for scenarios like updating a subset of an object.
+
+                  type Person ={
+                     name : string;
+                     age : number;
+                     address : string;
+                  };
+
+                  type PartialPerson = Partial<person>;
+                  const personUpdate :PartialPerson ={name:"Abijith"};
+
+             2.Required<T> :- Make all properties of a type required(opposite of Partial).
+             ---------------
+
+                    type OpetionalPerson ={
+                      name?:string;
+                      age?: number;
+                    };
+
+                    type RequiredPerson = Required<OpetionalPerson>;
+
+                    const person: RequiredPerson = { name: "Abijith", age: 25 }; // All fields required
+
+             3.Readonly<T> :- Make all properties of a type read-only(cannot be reassigned).
+             --------------
+                   
+                         type Person ={
+                           name : string;
+                           age : number;
+                         };
+
+                         type ReadonlyPerson = Readonly<Person>;
+                         const person : ReadonlyPerson={name:"Abijith" , age:25}
+                
+                //   person.name = "John"; // Error: Cannot assign to 'name' because it is a read-only property
+
+              4.Record<k, T> :- Constructs type with keys k and values of type T.
+              ------------------
+
+                  type Role = "admin"|"user"|"guest";
+
+                  type Permissions = Record<Role, boolean>;
+                  const role : Permissions = {
+                      admin : true,
+                      user : false,
+                      guest : false,
+                  };
+
+              5.Pick<T, K> :- Create a type by selecting specific properties from another type.
+              -------------
+
+                  type Person ={
+                     name : string;
+                     age : number;
+                     address : string;
+                  };
+
+                  type NameAndAge = Pick<person , "name" | "age">;
+
+                  const person : NameAndAge ={name : "Abijith" , age:25};     // Only 'name' and 'age' are allowed
+
+              6.Omit<T, K> :- Create a type by omitting specific properties from another type.
+              ---------------
+                    
+                     type Person ={
+                      name : string;
+                      age : number;
+                      address : string;
+                     };
+
+                     type withoutAddress = Omit<Person ,"address">;
+
+                     const person : withoutAddress = {name : "Abijith" , age:25};   // 'address' not allowed
+
+              7.Exclude<T, U> :-  Removes type from T that are assignable to U.
+              ------------------
+              
+               type AllTypes = string | number | boolean;
+               type withoutBoolean = Exclude<AllTypes, boolean>;
+
+               const value : withoutBoolean = 42;
+                                        //   const value2: WithoutBoolean = true; // Error: Type 'true' is not assignable;
+
+
+              8.Extract<T, U> :- Extract types from T that are assignable to U.
+              ----------------
+                  
+                  type AllTypes = string |number | boolean;
+                  type OnlyStringOrNumber = Extract<AllTypes , string | number>;
+
+                  const value : OnlyStringOrNumber = "Hello"
+
+              9.NonNullable<T> :- Removes null and undefined from a type.
+              -------------------
+               
+                   type NullableType = string | null | undefined ;
+                    
+                    type NonNullableType = NonNullable<NullableType>;
+
+                    const value : NonNullableType = "Hello"
+                                                    //   const value2: NonNullableType = null; // Error: Type 'null' is not assignable
+
+              10.ReturnType<T> :- Extracts the return type of a function.
+              ------------------
+
+                    function greet():string{
+                         return "Hello";
+                    }
+
+                   type GreetReturnType = ReturnType<typeof greet>;
+
+                   const greetng : GreetReturnType = "Hi";
+                   
+
+              11.Parameters<T> :- Extracts the type of Parameters of a function as a tuple.
+              -------------------
+                         
+                         function greet(name : string , age : number):void{}
+
+                         type GreetParameters = Parameters<typeof greet>;
+
+                         const args : GreetParameters = ["Abijith", 25];
+
+
+              12. ConstractorParameters<T> :- Extracts the type of parameters of a constructor as a tuble.
+             --------------------------------
+                               
+                                class  Person {
+                                  constructor(public name : string , public age : number){}
+                                }         
+
+                                type PersonConstructor  = ConstructorParameters<typeof Person>; 
+
+                                const args : PersonConstructor = ["Abijith" , 25];
+
+
+              13.InstanceType<T> :- Extracts the instance type of a constructor function .
+              ---------------------
+
+              class Person {
+                constructor(public name:string , public age : number) {};
+              }               
+
+              type PersonInstance = InstanceType<typeof Person>;
+
+              const person PersonInstance = new Person("Abijith" , 25);
+
+
+
+              14.Awaited<T> :- Unwraps the type of a Promise.
+              ---------------
+
+              type AsyncType = Promise<string>;
+              type ResolvedType = Awaited<AsyncType>;  
+
+
 
 [x]  any/unknown/never/void
 
